@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>DETAIL</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'show' %}">뒤로</a>
+        <br>
+        <a href ="{% url 'edit' pk=board.id %}">수정 </a>
+        <h1>제목:{{board.title}}</h1>
+        <p>내용:{{board.body}}</p>
+        <p>등록일:{{board.update_date}}</p>
+        <a href="{% url 'delete' pk=board.id %}"> 삭제</a>
+    </div>
+</body>
+</html>
