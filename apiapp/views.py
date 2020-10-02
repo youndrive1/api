@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404, redirect
-from .forms import BoardForm
-from .models import Board
+from .forms import BoardForm, CommentForm
+from .models import Board, Comment
 from django.utils import timezone
 
 # Create your views here.
@@ -37,7 +37,15 @@ def show(request):
 
 def detail(request, board_id):
     board_detail = get_object_or_404(Board, pk=board_id)
-    return render(request, 'detail.html', {'board':board_detail})
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        comment_form.instance.blog_id = board_id
+        if comment_form.is_valid():
+            comment = comment_form.save()
+    comment_form = CommentForm()
+    comments = board_detail.comments.all()
+    return render(request, 'detail.html', {'board':board_detail, 'comments':
+    comments, 'comment_form': comment_form})
 
 def delete(request, pk):
     board = Board.objects.get(id=pk)
